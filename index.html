@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>SDN 032 Mamugo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #121212;
+      color: white;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Sidebar kiri */
+    .sidebar {
+      width: 60px;
+      background-color: #1f1f1f;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+      gap: 20px;
+    }
+
+    .sidebar button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* Konten utama */
+    .main {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .fitur-box {
+      background: #1e1e1e;
+      padding: 15px;
+      border-left: 4px solid #00bcd4;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+
+    /* Panel Admin */
+    .panel-admin {
+      background: #232323;
+      padding: 15px;
+      margin-top: 30px;
+      border-radius: 5px;
+    }
+
+    textarea, input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    button.simpan {
+      margin-top: 15px;
+      background: #00bcd4;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .galeri img {
+      max-width: 100%;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <button onclick="scrollToFitur('pengumuman')">📢</button>
+    <button onclick="scrollToFitur('galeri')">🖼️</button>
+    <button onclick="scrollToFitur('jadwal')">📅</button>
+    <button onclick="scrollToFitur('siswa')">👩‍🏫</button>
+  </div>
+
+  <!-- Konten utama -->
+  <div class="main">
+    <h1>Selamat Datang di SDN 032 Mamugo</h1>
+    <div id="fitur-container"></div>
+
+    <!-- Panel Admin -->
+    <div class="panel-admin">
+      <h2>Panel Admin</h2>
+      <label><input type="checkbox" class="fitur-checkbox" value="pengumuman"> Aktifkan Pengumuman</label>
+      <label><input type="checkbox" class="fitur-checkbox" value="galeri"> Aktifkan Galeri</label>
+      <label><input type="checkbox" class="fitur-checkbox" value="jadwal"> Aktifkan Jadwal</label>
+      <label><input type="checkbox" class="fitur-checkbox" value="siswa"> Aktifkan Data Siswa</label>
+
+      <div id="form-pengumuman" class="fitur-box" style="display:none;">
+        <h3>Isi Pengumuman:</h3>
+        <textarea id="isi_pengumuman" rows="3"></textarea>
+      </div>
+
+      <div id="form-galeri" class="fitur-box" style="display:none;">
+        <h3>Link Gambar Galeri (pisahkan dengan koma):</h3>
+        <textarea id="galeri_links" rows="3"></textarea>
+      </div>
+
+      <div id="form-jadwal" class="fitur-box" style="display:none;">
+        <h3>Jadwal Pelajaran (format: Hari - Mapel):</h3>
+        <textarea id="jadwal_pelajaran" rows="3"></textarea>
+      </div>
+
+      <div id="form-siswa" class="fitur-box" style="display:none;">
+        <h3>Data Siswa per Kelas (format: Kelas - Nama1, Nama2,...):</h3>
+        <textarea id="data_siswa" rows="3"></textarea>
+      </div>
+
+      <button class="simpan" onclick="simpanKonfigurasi()">Simpan Konfigurasi</button>
+    </div>
+  </div>
+
+  <script>
+    const fiturCheckboxes = document.querySelectorAll('.fitur-checkbox');
+
+    fiturCheckboxes.forEach(cb => {
+      cb.addEventListener('change', () => {
+        const form = document.getElementById('form-' + cb.value);
+        form.style.display = cb.checked ? 'block' : 'none';
+      });
+    });
+
+    function simpanKonfigurasi() {
+      const aktif = [];
+      fiturCheckboxes.forEach(cb => {
+        if (cb.checked) aktif.push(cb.value);
+      });
+
+      const data = {
+        fitur_aktif: aktif,
+        pengumuman: document.getElementById('isi_pengumuman').value,
+        galeri: document.getElementById('galeri_links').value,
+        jadwal: document.getElementById('jadwal_pelajaran').value,
+        siswa: document.getElementById('data_siswa').value
+      };
+
+      localStorage.setItem('config_sdn032', JSON.stringify(data));
+      alert("Konfigurasi disimpan!");
+      tampilkanFitur(); // Refresh tampilan fitur
+    }
+
+    function tampilkanFitur() {
+      const config = JSON.parse(localStorage.getItem('config_sdn032') || '{}');
+      const fiturContainer = document.getElementById('fitur-container');
+      fiturContainer.innerHTML = '';
+
+      if (!config.fitur_aktif) return;
+
+      if (config.fitur_aktif.includes('pengumuman')) {
+        fiturContainer.innerHTML += `<div class="fitur-box" id="pengumuman"><h3>Pengumuman</h3><p>${config.pengumuman || '-'}</p></div>`;
+      }
+
+      if (config.fitur_aktif.includes('galeri')) {
+        const links = (config.galeri || '').split(',').map(x => x.trim()).filter(x => x);
+        let galeriHTML = links.map(link => `<img src="${link}">`).join('');
+        fiturContainer.innerHTML += `<div class="fitur-box galeri" id="galeri"><h3>Galeri Kegiatan</h3>${galeriHTML || '-'}</div>`;
+      }
+
+      if (config.fitur_aktif.includes('jadwal')) {
+        const list = (config.jadwal || '').split('\n').map(x => `<li>${x}</li>`).join('');
+        fiturContainer.innerHTML += `<div class="fitur-box" id="jadwal"><h3>Jadwal Pelajaran</h3><ul>${list || '-'}</ul></div>`;
+      }
+
+      if (config.fitur_aktif.includes('siswa')) {
+        const list = (config.siswa || '').split('\n').map(x => `<li>${x}</li>`).join('');
+        fiturContainer.innerHTML += `<div class="fitur-box" id="siswa"><h3>Data Siswa</h3><ul>${list || '-'}</ul></div>`;
+      }
+    }
+
+    function scrollToFitur(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Saat halaman dimuat
+    window.onload = () => {
+      const config = JSON.parse(localStorage.getItem('config_sdn032') || '{}');
+      if (config.fitur_aktif) {
+        config.fitur_aktif.forEach(f => {
+          const cb = document.querySelector(`input[value="${f}"]`);
+          if (cb) {
+            cb.checked = true;
+            document.getElementById('form-' + f).style.display = 'block';
+          }
+        });
+      }
+
+      document.getElementById('isi_pengumuman').value = config.pengumuman || '';
+      document.getElementById('galeri_links').value = config.galeri || '';
+      document.getElementById('jadwal_pelajaran').value = config.jadwal || '';
+      document.getElementById('data_siswa').value = config.siswa || '';
+      tampilkanFitur();
+    };
+  </script>
+</body>
+</html>
