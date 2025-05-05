@@ -2,285 +2,149 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SDN 032 Mamugo</title>
   <style>
     body {
       margin: 0;
       font-family: sans-serif;
-      background-color: #121212;
+      background-color: #111;
       color: white;
+    }
+
+    .container {
       display: flex;
-      height: 100vh;
-      overflow: hidden;
     }
 
     .sidebar {
-      width: 80px;
-      background-color: #1f1f1f;
+      width: 120px;
+      background-color: #222;
+      padding: 10px 5px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-top: 10px;
-      gap: 15px;
+      gap: 10px;
+      height: 100vh;
       overflow-y: auto;
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 10px;
     }
 
     .logo-sekolah {
       width: 60px;
       height: 60px;
-      object-fit: contain;
-      border-radius: 5px;
+      object-fit: cover;
+      border-radius: 6px;
       border: 2px solid #007bff;
+      margin-bottom: 5px;
     }
 
     .nama-sekolah {
-      background: #007bff;
+      background-color: #007bff;
       color: yellow;
       font-weight: bold;
-      padding: 6px 4px;
-      border-radius: 5px;
+      font-size: 12px;
       text-align: center;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-top: 5px;
+      padding: 5px;
+      border-radius: 5px;
     }
 
-    .sidebar button {
-      background: none;
+    .btn-fitur {
+      width: 100%;
+      background-color: #007bff;
+      color: black;
       border: none;
-      padding: 0;
-      cursor: pointer;
-    }
-
-    .fitur-btn {
-      background: #007bff;
-      padding: 6px;
+      padding: 10px 5px;
       border-radius: 10px;
       text-align: center;
-      width: 60px;
-      font-size: 24px;
+      font-weight: bold;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 12px;
     }
 
-    .fitur-btn span {
-      display: block;
-      font-size: 12px;
-      margin-top: 2px;
+    .btn-fitur span {
+      font-size: 22px;
     }
 
     .main {
       flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-    }
-
-    .welcome {
-      font-size: 20px;
-      font-weight: bold;
-      background: #007bff;
-      padding: 10px;
-      border-radius: 5px;
-      color: yellow;
-      margin-bottom: 20px;
-    }
-
-    .fitur-box, .panel-admin {
-      background: #007bff;
       padding: 15px;
-      border-radius: 5px;
-      margin-bottom: 20px;
     }
 
-    .pengumuman { color: #ffeb3b; }
-    .galeri { color: #03a9f4; }
-    .jadwal { color: #cddc39; }
-    .siswa { color: #81c784; }
-    .admin-text { color: white; }
-
-    .fitur-box ul {
-      padding-left: 20px;
-    }
-
-    .fitur-box img {
-      max-width: 100%;
-      border-radius: 5px;
-      margin-top: 10px;
-    }
-
-    label {
-      display: block;
-      margin-top: 10px;
+    .fitur-box {
+      background-color: #007bff;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 10px;
       color: white;
     }
 
-    textarea, input {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border: none;
-      border-radius: 5px;
+    .fitur-box h2 {
+      margin-top: 0;
     }
 
-    button.simpan {
-      margin-top: 15px;
-      background: #ffffff;
-      color: #007bff;
-      border: none;
-      padding: 10px;
-      border-radius: 5px;
+    .selamat-datang {
+      background-color: #007bff;
+      color: yellow;
       font-weight: bold;
-      cursor: pointer;
+      font-size: 20px;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 15px;
     }
-
   </style>
 </head>
 <body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="logo-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/SD_Negeri_Logo.png/600px-SD_Negeri_Logo.png" alt="Logo" class="logo-sekolah" />
+        <div class="nama-sekolah">SDN 032 MAMUGO</div>
+      </div>
+      <button class="btn-fitur"><span>⚙️</span>Admin</button>
+      <button class="btn-fitur"><span>📢</span>Pengumuman</button>
+      <button class="btn-fitur"><span>🖼️</span>Galeri</button>
+      <button class="btn-fitur"><span>📅</span>Jadwal</button>
+      <button class="btn-fitur"><span>🧑‍🎓</span>Siswa</button>
+    </div>
 
-  <div class="sidebar">
-    <img src="" alt="Logo" id="logo-sekolah" class="logo-sekolah" style="display: none;" />
-    <div class="nama-sekolah">SDN 032 Mamugo</div>
-    <button onclick="tampilkanHalaman('admin')">
-      <div class="fitur-btn">⚙️<span>Admin</span></div>
-    </button>
-    <button onclick="tampilkanHalaman('pengumuman')">
-      <div class="fitur-btn">📢<span>Pengumuman</span></div>
-    </button>
-    <button onclick="tampilkanHalaman('galeri')">
-      <div class="fitur-btn">🖼️<span>Galeri</span></div>
-    </button>
-    <button onclick="tampilkanHalaman('jadwal')">
-      <div class="fitur-btn">📅<span>Jadwal</span></div>
-    </button>
-    <button onclick="tampilkanHalaman('siswa')">
-      <div class="fitur-btn">👩‍🏫<span>Siswa</span></div>
-    </button>
+    <div class="main">
+      <div class="selamat-datang">SELAMAT DATANG DI SDN 032 MAMUGO</div>
+
+      <div class="fitur-box" style="background-color:#007bff;">
+        <h2 style="color:yellow;">Admin Panel</h2>
+        <p>Fitur pengelolaan data website oleh admin sekolah.</p>
+      </div>
+
+      <div class="fitur-box" style="background-color:#28a745;">
+        <h2 style="color:yellow;">Pengumuman</h2>
+        <p>Tempat menampilkan informasi penting dan pengumuman sekolah.</p>
+      </div>
+
+      <div class="fitur-box" style="background-color:#17a2b8;">
+        <h2 style="color:yellow;">Galeri</h2>
+        <p>Menampilkan foto-foto kegiatan sekolah.</p>
+      </div>
+
+      <div class="fitur-box" style="background-color:#ffc107;">
+        <h2 style="color:black;">Jadwal</h2>
+        <p>Berisi jadwal pelajaran dan kegiatan sekolah.</p>
+      </div>
+
+      <div class="fitur-box" style="background-color:#dc3545;">
+        <h2 style="color:yellow;">Data Siswa</h2>
+        <p>Daftar siswa berdasarkan kelas.</p>
+      </div>
+    </div>
   </div>
-
-  <div class="main">
-    <div class="welcome">Selamat Datang di SDN 032 Mamugo</div>
-    <div id="konten-halaman"></div>
-  </div>
-
-  <script>
-    // Tampilkan logo jika tersimpan
-    const logo = localStorage.getItem('logo_sdn032');
-    if (logo) {
-      const img = document.getElementById('logo-sekolah');
-      img.src = logo;
-      img.style.display = 'block';
-    }
-
-    function tampilkanHalaman(nama) {
-      const konten = document.getElementById('konten-halaman');
-      konten.innerHTML = '';
-
-      const config = JSON.parse(localStorage.getItem('config_sdn032') || '{}');
-      const fiturAktif = config.fitur_aktif || [];
-
-      if (nama === 'admin') {
-        konten.innerHTML = `
-          <div class="panel-admin admin-text">
-            <h2>Panel Admin</h2>
-
-            <label>Upload Logo Sekolah:
-              <input type="file" id="upload-logo" accept="image/*" onchange="simpanLogo(event)">
-            </label>
-
-            <label><input type="checkbox" class="fitur-checkbox" value="pengumuman"> Aktifkan Pengumuman</label>
-            <label><input type="checkbox" class="fitur-checkbox" value="galeri"> Aktifkan Galeri</label>
-            <label><input type="checkbox" class="fitur-checkbox" value="jadwal"> Aktifkan Jadwal</label>
-            <label><input type="checkbox" class="fitur-checkbox" value="siswa"> Aktifkan Data Siswa</label>
-
-            <div id="form-pengumuman" class="fitur-box pengumuman" style="display:none;">
-              <h3>Isi Pengumuman:</h3>
-              <textarea id="isi_pengumuman" rows="3"></textarea>
-            </div>
-
-            <div id="form-galeri" class="fitur-box galeri" style="display:none;">
-              <h3>Link Gambar Galeri (pisahkan dengan koma):</h3>
-              <textarea id="galeri_links" rows="3"></textarea>
-            </div>
-
-            <div id="form-jadwal" class="fitur-box jadwal" style="display:none;">
-              <h3>Jadwal Pelajaran (format: Hari - Mapel):</h3>
-              <textarea id="jadwal_pelajaran" rows="3"></textarea>
-            </div>
-
-            <div id="form-siswa" class="fitur-box siswa" style="display:none;">
-              <h3>Data Siswa per Kelas (format: Kelas - Nama1, Nama2,...):</h3>
-              <textarea id="data_siswa" rows="3"></textarea>
-            </div>
-
-            <button class="simpan" onclick="simpanKonfigurasi()">Simpan Konfigurasi</button>
-          </div>
-        `;
-
-        document.querySelectorAll('.fitur-checkbox').forEach(cb => {
-          if (fiturAktif.includes(cb.value)) {
-            cb.checked = true;
-            document.getElementById('form-' + cb.value).style.display = 'block';
-          }
-          cb.addEventListener('change', () => {
-            const form = document.getElementById('form-' + cb.value);
-            form.style.display = cb.checked ? 'block' : 'none';
-          });
-        });
-
-        document.getElementById('isi_pengumuman').value = config.pengumuman || '';
-        document.getElementById('galeri_links').value = config.galeri || '';
-        document.getElementById('jadwal_pelajaran').value = config.jadwal || '';
-        document.getElementById('data_siswa').value = config.siswa || '';
-      }
-
-      if (fiturAktif.includes(nama)) {
-        if (nama === 'pengumuman') {
-          konten.innerHTML = `<div class="fitur-box pengumuman"><h3>Pengumuman</h3><p>${config.pengumuman || '-'}</p></div>`;
-        } else if (nama === 'galeri') {
-          const links = (config.galeri || '').split(',').map(x => x.trim()).filter(x => x);
-          let galeriHTML = links.map(link => `<img src="${link}">`).join('');
-          konten.innerHTML = `<div class="fitur-box galeri"><h3>Galeri Kegiatan</h3>${galeriHTML || '-'}</div>`;
-        } else if (nama === 'jadwal') {
-          const list = (config.jadwal || '').split('\n').map(x => `<li>${x}</li>`).join('');
-          konten.innerHTML = `<div class="fitur-box jadwal"><h3>Jadwal Pelajaran</h3><ul>${list || '-'}</ul></div>`;
-        } else if (nama === 'siswa') {
-          const list = (config.siswa || '').split('\n').map(x => `<li>${x}</li>`).join('');
-          konten.innerHTML = `<div class="fitur-box siswa"><h3>Data Siswa</h3><ul>${list || '-'}</ul></div>`;
-        }
-      } else if (nama !== 'admin') {
-        konten.innerHTML = `<div class="fitur-box"><p>Fitur ini belum diaktifkan di panel admin.</p></div>`;
-      }
-    }
-
-    function simpanKonfigurasi() {
-      const aktif = [];
-      document.querySelectorAll('.fitur-checkbox').forEach(cb => {
-        if (cb.checked) aktif.push(cb.value);
-      });
-
-      const data = {
-        fitur_aktif: aktif,
-        pengumuman: document.getElementById('isi_pengumuman').value,
-        galeri: document.getElementById('galeri_links').value,
-        jadwal: document.getElementById('jadwal_pelajaran').value,
-        siswa: document.getElementById('data_siswa').value
-      };
-
-      localStorage.setItem('config_sdn032', JSON.stringify(data));
-      alert("Konfigurasi disimpan!");
-    }
-
-    function simpanLogo(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        localStorage.setItem('logo_sdn032', e.target.result);
-        alert('Logo disimpan! Muat ulang halaman untuk melihat.');
-      };
-      reader.readAsDataURL(file);
-    }
-  </script>
-
 </body>
 </html>
