@@ -21,9 +21,30 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-top: 20px;
+      padding-top: 10px;
       gap: 15px;
       overflow-y: auto;
+    }
+
+    .logo-sekolah {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      border-radius: 5px;
+      border: 2px solid #007bff;
+    }
+
+    .nama-sekolah {
+      background: #007bff;
+      color: yellow;
+      font-weight: bold;
+      padding: 6px 4px;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 5px;
     }
 
     .sidebar button {
@@ -117,6 +138,8 @@
 <body>
 
   <div class="sidebar">
+    <img src="" alt="Logo" id="logo-sekolah" class="logo-sekolah" style="display: none;" />
+    <div class="nama-sekolah">SDN 032 Mamugo</div>
     <button onclick="tampilkanHalaman('admin')">
       <div class="fitur-btn">⚙️<span>Admin</span></div>
     </button>
@@ -140,6 +163,14 @@
   </div>
 
   <script>
+    // Tampilkan logo jika tersimpan
+    const logo = localStorage.getItem('logo_sdn032');
+    if (logo) {
+      const img = document.getElementById('logo-sekolah');
+      img.src = logo;
+      img.style.display = 'block';
+    }
+
     function tampilkanHalaman(nama) {
       const konten = document.getElementById('konten-halaman');
       konten.innerHTML = '';
@@ -151,6 +182,11 @@
         konten.innerHTML = `
           <div class="panel-admin admin-text">
             <h2>Panel Admin</h2>
+
+            <label>Upload Logo Sekolah:
+              <input type="file" id="upload-logo" accept="image/*" onchange="simpanLogo(event)">
+            </label>
+
             <label><input type="checkbox" class="fitur-checkbox" value="pengumuman"> Aktifkan Pengumuman</label>
             <label><input type="checkbox" class="fitur-checkbox" value="galeri"> Aktifkan Galeri</label>
             <label><input type="checkbox" class="fitur-checkbox" value="jadwal"> Aktifkan Jadwal</label>
@@ -233,6 +269,18 @@
       localStorage.setItem('config_sdn032', JSON.stringify(data));
       alert("Konfigurasi disimpan!");
     }
+
+    function simpanLogo(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        localStorage.setItem('logo_sdn032', e.target.result);
+        alert('Logo disimpan! Muat ulang halaman untuk melihat.');
+      };
+      reader.readAsDataURL(file);
+    }
   </script>
+
 </body>
 </html>
