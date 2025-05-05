@@ -14,6 +14,7 @@
 
     .container {
       display: flex;
+      min-height: 100vh;
     }
 
     .sidebar {
@@ -24,8 +25,6 @@
       flex-direction: column;
       align-items: center;
       gap: 10px;
-      height: 100vh;
-      overflow-y: auto;
     }
 
     .logo-container {
@@ -68,6 +67,7 @@
       flex-direction: column;
       align-items: center;
       font-size: 12px;
+      cursor: pointer;
     }
 
     .btn-fitur span {
@@ -85,10 +85,11 @@
       padding: 10px;
       border-radius: 10px;
       color: white;
+      display: none;
     }
 
-    .fitur-box h2 {
-      margin-top: 0;
+    .fitur-box.active {
+      display: block;
     }
 
     .selamat-datang {
@@ -101,50 +102,76 @@
       text-align: center;
       margin-bottom: 15px;
     }
+
+    input[type="file"] {
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="sidebar">
       <div class="logo-container">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/SD_Negeri_Logo.png/600px-SD_Negeri_Logo.png" alt="Logo" class="logo-sekolah" />
+        <img id="logoImage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/SD_Negeri_Logo.png/600px-SD_Negeri_Logo.png" alt="Logo" class="logo-sekolah" />
         <div class="nama-sekolah">SDN 032 MAMUGO</div>
       </div>
-      <button class="btn-fitur"><span>⚙️</span>Admin</button>
-      <button class="btn-fitur"><span>📢</span>Pengumuman</button>
-      <button class="btn-fitur"><span>🖼️</span>Galeri</button>
-      <button class="btn-fitur"><span>📅</span>Jadwal</button>
-      <button class="btn-fitur"><span>🧑‍🎓</span>Siswa</button>
+      <button class="btn-fitur" onclick="tampilkan('admin')"><span>⚙️</span>Admin</button>
+      <button class="btn-fitur" onclick="tampilkan('pengumuman')"><span>📢</span>Pengumuman</button>
+      <button class="btn-fitur" onclick="tampilkan('galeri')"><span>🖼️</span>Galeri</button>
+      <button class="btn-fitur" onclick="tampilkan('jadwal')"><span>📅</span>Jadwal</button>
+      <button class="btn-fitur" onclick="tampilkan('siswa')"><span>🧑‍🎓</span>Siswa</button>
     </div>
 
     <div class="main">
       <div class="selamat-datang">SELAMAT DATANG DI SDN 032 MAMUGO</div>
 
-      <div class="fitur-box" style="background-color:#007bff;">
+      <div id="admin" class="fitur-box" style="background-color:#007bff;">
         <h2 style="color:yellow;">Admin Panel</h2>
         <p>Fitur pengelolaan data website oleh admin sekolah.</p>
+        <label for="logoUpload">Upload Logo Sekolah:</label>
+        <input type="file" id="logoUpload" accept="image/*" onchange="gantiLogo(event)" />
       </div>
 
-      <div class="fitur-box" style="background-color:#28a745;">
+      <div id="pengumuman" class="fitur-box" style="background-color:#28a745;">
         <h2 style="color:yellow;">Pengumuman</h2>
         <p>Tempat menampilkan informasi penting dan pengumuman sekolah.</p>
       </div>
 
-      <div class="fitur-box" style="background-color:#17a2b8;">
+      <div id="galeri" class="fitur-box" style="background-color:#17a2b8;">
         <h2 style="color:yellow;">Galeri</h2>
         <p>Menampilkan foto-foto kegiatan sekolah.</p>
       </div>
 
-      <div class="fitur-box" style="background-color:#ffc107;">
+      <div id="jadwal" class="fitur-box" style="background-color:#ffc107;">
         <h2 style="color:black;">Jadwal</h2>
         <p>Berisi jadwal pelajaran dan kegiatan sekolah.</p>
       </div>
 
-      <div class="fitur-box" style="background-color:#dc3545;">
+      <div id="siswa" class="fitur-box" style="background-color:#dc3545;">
         <h2 style="color:yellow;">Data Siswa</h2>
         <p>Daftar siswa berdasarkan kelas.</p>
       </div>
     </div>
   </div>
+
+  <script>
+    function tampilkan(id) {
+      const boxes = document.querySelectorAll('.fitur-box');
+      boxes.forEach(box => box.classList.remove('active'));
+      const selected = document.getElementById(id);
+      if (selected) selected.classList.add('active');
+    }
+
+    function gantiLogo(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById("logoImage").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  </script>
 </body>
 </html>
