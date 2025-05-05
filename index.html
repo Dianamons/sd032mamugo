@@ -69,8 +69,13 @@
       padding: 15px;
       border-radius: 5px;
       margin-bottom: 20px;
-      color: white;
     }
+
+    .pengumuman { color: #ffeb3b; }
+    .galeri { color: #03a9f4; }
+    .jadwal { color: #cddc39; }
+    .siswa { color: #81c784; }
+    .admin-text { color: white; }
 
     .fitur-box ul {
       padding-left: 20px;
@@ -144,29 +149,29 @@
 
       if (nama === 'admin') {
         konten.innerHTML = `
-          <div class="panel-admin">
+          <div class="panel-admin admin-text">
             <h2>Panel Admin</h2>
             <label><input type="checkbox" class="fitur-checkbox" value="pengumuman"> Aktifkan Pengumuman</label>
             <label><input type="checkbox" class="fitur-checkbox" value="galeri"> Aktifkan Galeri</label>
             <label><input type="checkbox" class="fitur-checkbox" value="jadwal"> Aktifkan Jadwal</label>
             <label><input type="checkbox" class="fitur-checkbox" value="siswa"> Aktifkan Data Siswa</label>
 
-            <div id="form-pengumuman" class="fitur-box" style="display:none;">
+            <div id="form-pengumuman" class="fitur-box pengumuman" style="display:none;">
               <h3>Isi Pengumuman:</h3>
               <textarea id="isi_pengumuman" rows="3"></textarea>
             </div>
 
-            <div id="form-galeri" class="fitur-box" style="display:none;">
+            <div id="form-galeri" class="fitur-box galeri" style="display:none;">
               <h3>Link Gambar Galeri (pisahkan dengan koma):</h3>
               <textarea id="galeri_links" rows="3"></textarea>
             </div>
 
-            <div id="form-jadwal" class="fitur-box" style="display:none;">
+            <div id="form-jadwal" class="fitur-box jadwal" style="display:none;">
               <h3>Jadwal Pelajaran (format: Hari - Mapel):</h3>
               <textarea id="jadwal_pelajaran" rows="3"></textarea>
             </div>
 
-            <div id="form-siswa" class="fitur-box" style="display:none;">
+            <div id="form-siswa" class="fitur-box siswa" style="display:none;">
               <h3>Data Siswa per Kelas (format: Kelas - Nama1, Nama2,...):</h3>
               <textarea id="data_siswa" rows="3"></textarea>
             </div>
@@ -194,17 +199,17 @@
 
       if (fiturAktif.includes(nama)) {
         if (nama === 'pengumuman') {
-          konten.innerHTML = `<div class="fitur-box"><h3>Pengumuman</h3><p>${config.pengumuman || '-'}</p></div>`;
+          konten.innerHTML = `<div class="fitur-box pengumuman"><h3>Pengumuman</h3><p>${config.pengumuman || '-'}</p></div>`;
         } else if (nama === 'galeri') {
           const links = (config.galeri || '').split(',').map(x => x.trim()).filter(x => x);
           let galeriHTML = links.map(link => `<img src="${link}">`).join('');
-          konten.innerHTML = `<div class="fitur-box"><h3>Galeri Kegiatan</h3>${galeriHTML || '-'}</div>`;
+          konten.innerHTML = `<div class="fitur-box galeri"><h3>Galeri Kegiatan</h3>${galeriHTML || '-'}</div>`;
         } else if (nama === 'jadwal') {
           const list = (config.jadwal || '').split('\n').map(x => `<li>${x}</li>`).join('');
-          konten.innerHTML = `<div class="fitur-box"><h3>Jadwal Pelajaran</h3><ul>${list || '-'}</ul></div>`;
+          konten.innerHTML = `<div class="fitur-box jadwal"><h3>Jadwal Pelajaran</h3><ul>${list || '-'}</ul></div>`;
         } else if (nama === 'siswa') {
           const list = (config.siswa || '').split('\n').map(x => `<li>${x}</li>`).join('');
-          konten.innerHTML = `<div class="fitur-box"><h3>Data Siswa</h3><ul>${list || '-'}</ul></div>`;
+          konten.innerHTML = `<div class="fitur-box siswa"><h3>Data Siswa</h3><ul>${list || '-'}</ul></div>`;
         }
       } else if (nama !== 'admin') {
         konten.innerHTML = `<div class="fitur-box"><p>Fitur ini belum diaktifkan di panel admin.</p></div>`;
