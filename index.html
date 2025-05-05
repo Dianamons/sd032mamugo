@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>SDN 032 MAMUGO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
@@ -11,19 +12,39 @@
     }
     .container {
       display: flex;
+      flex-direction: row;
       min-height: 100vh;
     }
     .sidebar {
       width: 200px;
       background-color: #007BFF;
       color: white;
-      padding: 20px 10px;
+      padding: 10px;
       box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .logo {
+      width: 100px;
+      height: 100px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      object-fit: contain;
+    }
+    .school-name {
+      background-color: white;
+      color: #007BFF;
+      font-weight: bold;
+      text-align: center;
+      padding: 5px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      font-size: 14px;
     }
     .sidebar button {
-      display: block;
       width: 100%;
-      margin: 10px 0;
+      margin: 5px 0;
       padding: 10px;
       background-color: white;
       color: #007BFF;
@@ -34,7 +55,7 @@
     }
     .content {
       flex: 1;
-      padding: 20px;
+      padding: 15px;
     }
     .section {
       display: none;
@@ -44,7 +65,7 @@
       margin-bottom: 15px;
     }
     .section h2 {
-      color: #ffc107;
+      color: yellow;
       background-color: #007BFF;
       padding: 10px;
       border-radius: 6px;
@@ -59,13 +80,22 @@
       }
       .sidebar {
         width: 100%;
-        display: flex;
+        flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
       }
       .sidebar button {
         width: 45%;
         margin: 5px;
+      }
+      .logo {
+        width: 60px;
+        height: 60px;
+      }
+      .school-name {
+        font-size: 12px;
+        padding: 3px;
+        margin-bottom: 5px;
       }
     }
   </style>
@@ -74,6 +104,8 @@
 
 <div class="container">
   <div class="sidebar">
+    <img src="logo.png" alt="Logo Sekolah" class="logo">
+    <div class="school-name">SD NEGERI 032 MAMUGO</div>
     <button onclick="tampilkan('admin')">ADMIN</button>
     <button onclick="tampilkan('pengumuman')">PENGUMUMAN</button>
     <button onclick="tampilkan('galeri')">GALERI</button>
@@ -126,8 +158,7 @@
 
 <script>
   function tampilkan(id) {
-    let sections = document.querySelectorAll('.section');
-    sections.forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
   }
 
@@ -152,14 +183,13 @@
   function tampilkanSiswa() {
     const daftar = JSON.parse(localStorage.getItem('dataSiswa') || '[]');
     let html = '<ul>';
-    daftar.forEach((s, i) => {
+    daftar.forEach((s) => {
       html += `<li>${s.nama} - ${s.kelas}</li>`;
     });
     html += '</ul>';
     document.getElementById('daftarSiswa').innerHTML = html;
   }
 
-  // Tampilkan data siswa saat load
   tampilkanSiswa();
 </script>
 
