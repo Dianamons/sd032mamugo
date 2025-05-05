@@ -5,149 +5,138 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SDN 032 Mamugo</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
-    body { display: flex; background: #111; color: white; min-height: 100vh; }
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #111;
+      color: white;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
     .sidebar {
-      width: 150px;
-      background: #222;
+      background: #1a1a1a;
+      width: 140px;
       padding: 10px 5px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
     .logo {
-      width: 70px;
-      height: 70px;
-      margin: 5px;
-      border: 2px solid #00aaff;
+      width: 80px;
+      height: 80px;
+      border: 3px solid #00bfff;
       border-radius: 10px;
-      object-fit: cover;
+      margin-bottom: 5px;
+      background: white;
+      background-image: url('https://via.placeholder.com/80');
+      background-size: cover;
+      background-position: center;
     }
     .school-name {
-      color: yellow;
       background: #007bff;
       padding: 5px;
-      border-radius: 10px;
-      font-size: 12px;
-      margin-bottom: 20px;
-      text-align: center;
+      color: yellow;
       font-weight: bold;
-    }
-    .menu-btn {
-      width: 100%;
-      margin: 6px 0;
-      padding: 10px;
-      background: #007bff;
-      color: black;
-      border-radius: 15px;
+      font-size: 13px;
       text-align: center;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .menu-btn:hover {
-      background: #0056b3;
-      color: white;
-    }
-    .content {
-      flex: 1;
-      padding: 15px;
-    }
-    .section {
-      display: none;
-      padding: 15px;
-      border-radius: 15px;
+      border-radius: 6px;
       margin-bottom: 15px;
     }
-    #welcome {
-      display: block;
+    .menu-button {
       background: #007bff;
-      color: yellow;
-      font-size: 18px;
+      color: black;
       font-weight: bold;
+      width: 100%;
+      padding: 10px 5px;
+      margin: 5px 0;
+      border-radius: 15px;
       text-align: center;
+      cursor: pointer;
     }
-    #admin { background: #007bff; }
-    #pengumuman { background: #28a745; }
-    #galeri { background: #17a2b8; }
-    #jadwal { background: #ffc107; color: black; }
-    #siswa { background: #6f42c1; }
-
+    .menu-button:hover {
+      background: #339cff;
+    }
+    .main {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+    }
+    .section {
+      background: #007bff;
+      padding: 10px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+    .section.green {
+      background: #28a745;
+    }
+    .section.cyan {
+      background: #17a2b8;
+    }
+    .section.yellow {
+      background: #ffc107;
+      color: black;
+    }
     .section h2 {
       color: yellow;
-      margin-bottom: 10px;
+      margin: 0 0 8px;
+    }
+    .section.yellow h2 {
+      color: black;
     }
     .section p {
-      color: white;
-    }
-
-    @media (max-width: 768px) {
-      body { flex-direction: column; }
-      .sidebar {
-        flex-direction: row;
-        overflow-x: auto;
-        width: 100%;
-        justify-content: space-around;
-        padding: 10px;
-      }
-      .content {
-        padding: 10px;
-      }
-      .menu-btn {
-        font-size: 12px;
-        padding: 8px;
-      }
+      margin: 0;
     }
   </style>
 </head>
 <body>
-
   <div class="sidebar">
-    <img src="https://via.placeholder.com/60" alt="Logo" class="logo" />
+    <div class="logo"></div>
     <div class="school-name">SDN 032 MAMUGO</div>
-    <div class="menu-btn" onclick="showSection('admin')">Admin</div>
-    <div class="menu-btn" onclick="showSection('pengumuman')">Pengumuman</div>
-    <div class="menu-btn" onclick="showSection('galeri')">Galeri</div>
-    <div class="menu-btn" onclick="showSection('jadwal')">Jadwal</div>
-    <div class="menu-btn" onclick="showSection('siswa')">Siswa</div>
+    <div class="menu-button" onclick="scrollToSection('admin')">Admin</div>
+    <div class="menu-button" onclick="scrollToSection('pengumuman')">Pengumuman</div>
+    <div class="menu-button" onclick="scrollToSection('galeri')">Galeri</div>
+    <div class="menu-button" onclick="scrollToSection('jadwal')">Jadwal</div>
+    <div class="menu-button" onclick="scrollToSection('siswa')">Siswa</div>
   </div>
 
-  <div class="content">
-    <div class="section" id="welcome">SELAMAT DATANG DI SDN 032 MAMUGO</div>
+  <div class="main">
+    <div class="section">
+      <h2>SELAMAT DATANG DI SDN 032 MAMUGO</h2>
+    </div>
 
     <div class="section" id="admin">
       <h2>Admin Panel</h2>
       <p>Fitur pengelolaan data website oleh admin sekolah.</p>
     </div>
 
-    <div class="section" id="pengumuman">
+    <div class="section green" id="pengumuman">
       <h2>Pengumuman</h2>
       <p>Tempat menampilkan informasi penting dan pengumuman sekolah.</p>
     </div>
 
-    <div class="section" id="galeri">
+    <div class="section cyan" id="galeri">
       <h2>Galeri</h2>
       <p>Menampilkan foto-foto kegiatan sekolah.</p>
     </div>
 
-    <div class="section" id="jadwal">
+    <div class="section yellow" id="jadwal">
       <h2>Jadwal</h2>
-      <p>Menampilkan jadwal pelajaran sekolah setiap kelas.</p>
+      <p>Melihat jadwal pelajaran sekolah per kelas.</p>
     </div>
 
-    <div class="section" id="siswa">
+    <div class="section" style="background:#6f42c1;" id="siswa">
       <h2>Siswa</h2>
       <p>Menampilkan data siswa berdasarkan kelas.</p>
     </div>
   </div>
 
   <script>
-    function showSection(id) {
-      const sections = document.querySelectorAll('.section');
-      sections.forEach(sec => sec.style.display = 'none');
-      document.getElementById(id).style.display = 'block';
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
   </script>
-
 </body>
 </html>
