@@ -2,149 +2,152 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SDN 032 Mamugo</title>
   <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background-color: #111;
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+    body { display: flex; background: #111; color: white; min-height: 100vh; }
+    .sidebar {
+      width: 150px;
+      background: #222;
+      padding: 10px 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .logo {
+      width: 70px;
+      height: 70px;
+      margin: 5px;
+      border: 2px solid #00aaff;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+    .school-name {
+      color: yellow;
+      background: #007bff;
+      padding: 5px;
+      border-radius: 10px;
+      font-size: 12px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .menu-btn {
+      width: 100%;
+      margin: 6px 0;
+      padding: 10px;
+      background: #007bff;
+      color: black;
+      border-radius: 15px;
+      text-align: center;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .menu-btn:hover {
+      background: #0056b3;
       color: white;
     }
-
-    .container {
-      display: flex;
-    }
-
-    .sidebar {
-      width: 120px;
-      background-color: #222;
-      padding: 10px 5px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      height: 100vh;
-      overflow-y: auto;
-    }
-
-    .logo-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .logo-sekolah {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 6px;
-      border: 2px solid #007bff;
-      margin-bottom: 5px;
-    }
-
-    .nama-sekolah {
-      background-color: #007bff;
-      color: yellow;
-      font-weight: bold;
-      font-size: 12px;
-      text-align: center;
-      padding: 5px;
-      border-radius: 5px;
-    }
-
-    .btn-fitur {
-      width: 100%;
-      background-color: #007bff;
-      color: black;
-      border: none;
-      padding: 10px 5px;
-      border-radius: 10px;
-      text-align: center;
-      font-weight: bold;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 12px;
-    }
-
-    .btn-fitur span {
-      font-size: 22px;
-    }
-
-    .main {
+    .content {
       flex: 1;
       padding: 15px;
     }
-
-    .fitur-box {
-      background-color: #007bff;
+    .section {
+      display: none;
+      padding: 15px;
+      border-radius: 15px;
       margin-bottom: 15px;
-      padding: 10px;
-      border-radius: 10px;
+    }
+    #welcome {
+      display: block;
+      background: #007bff;
+      color: yellow;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+    }
+    #admin { background: #007bff; }
+    #pengumuman { background: #28a745; }
+    #galeri { background: #17a2b8; }
+    #jadwal { background: #ffc107; color: black; }
+    #siswa { background: #6f42c1; }
+
+    .section h2 {
+      color: yellow;
+      margin-bottom: 10px;
+    }
+    .section p {
       color: white;
     }
 
-    .fitur-box h2 {
-      margin-top: 0;
-    }
-
-    .selamat-datang {
-      background-color: #007bff;
-      color: yellow;
-      font-weight: bold;
-      font-size: 20px;
-      padding: 10px;
-      border-radius: 10px;
-      text-align: center;
-      margin-bottom: 15px;
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+        width: 100%;
+        justify-content: space-around;
+        padding: 10px;
+      }
+      .content {
+        padding: 10px;
+      }
+      .menu-btn {
+        font-size: 12px;
+        padding: 8px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="sidebar">
-      <div class="logo-container">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/SD_Negeri_Logo.png/600px-SD_Negeri_Logo.png" alt="Logo" class="logo-sekolah" />
-        <div class="nama-sekolah">SDN 032 MAMUGO</div>
-      </div>
-      <button class="btn-fitur"><span>⚙️</span>Admin</button>
-      <button class="btn-fitur"><span>📢</span>Pengumuman</button>
-      <button class="btn-fitur"><span>🖼️</span>Galeri</button>
-      <button class="btn-fitur"><span>📅</span>Jadwal</button>
-      <button class="btn-fitur"><span>🧑‍🎓</span>Siswa</button>
+
+  <div class="sidebar">
+    <img src="https://via.placeholder.com/60" alt="Logo" class="logo" />
+    <div class="school-name">SDN 032 MAMUGO</div>
+    <div class="menu-btn" onclick="showSection('admin')">Admin</div>
+    <div class="menu-btn" onclick="showSection('pengumuman')">Pengumuman</div>
+    <div class="menu-btn" onclick="showSection('galeri')">Galeri</div>
+    <div class="menu-btn" onclick="showSection('jadwal')">Jadwal</div>
+    <div class="menu-btn" onclick="showSection('siswa')">Siswa</div>
+  </div>
+
+  <div class="content">
+    <div class="section" id="welcome">SELAMAT DATANG DI SDN 032 MAMUGO</div>
+
+    <div class="section" id="admin">
+      <h2>Admin Panel</h2>
+      <p>Fitur pengelolaan data website oleh admin sekolah.</p>
     </div>
 
-    <div class="main">
-      <div class="selamat-datang">SELAMAT DATANG DI SDN 032 MAMUGO</div>
+    <div class="section" id="pengumuman">
+      <h2>Pengumuman</h2>
+      <p>Tempat menampilkan informasi penting dan pengumuman sekolah.</p>
+    </div>
 
-      <div class="fitur-box" style="background-color:#007bff;">
-        <h2 style="color:yellow;">Admin Panel</h2>
-        <p>Fitur pengelolaan data website oleh admin sekolah.</p>
-      </div>
+    <div class="section" id="galeri">
+      <h2>Galeri</h2>
+      <p>Menampilkan foto-foto kegiatan sekolah.</p>
+    </div>
 
-      <div class="fitur-box" style="background-color:#28a745;">
-        <h2 style="color:yellow;">Pengumuman</h2>
-        <p>Tempat menampilkan informasi penting dan pengumuman sekolah.</p>
-      </div>
+    <div class="section" id="jadwal">
+      <h2>Jadwal</h2>
+      <p>Menampilkan jadwal pelajaran sekolah setiap kelas.</p>
+    </div>
 
-      <div class="fitur-box" style="background-color:#17a2b8;">
-        <h2 style="color:yellow;">Galeri</h2>
-        <p>Menampilkan foto-foto kegiatan sekolah.</p>
-      </div>
-
-      <div class="fitur-box" style="background-color:#ffc107;">
-        <h2 style="color:black;">Jadwal</h2>
-        <p>Berisi jadwal pelajaran dan kegiatan sekolah.</p>
-      </div>
-
-      <div class="fitur-box" style="background-color:#dc3545;">
-        <h2 style="color:yellow;">Data Siswa</h2>
-        <p>Daftar siswa berdasarkan kelas.</p>
-      </div>
+    <div class="section" id="siswa">
+      <h2>Siswa</h2>
+      <p>Menampilkan data siswa berdasarkan kelas.</p>
     </div>
   </div>
+
+  <script>
+    function showSection(id) {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(sec => sec.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+  </script>
+
 </body>
 </html>
