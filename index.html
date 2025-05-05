@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,10 +11,12 @@
       background-color: #111;
       color: white;
     }
+
     .container {
       display: flex;
       flex-direction: row;
     }
+
     .sidebar {
       width: 120px;
       background-color: #222;
@@ -25,6 +28,7 @@
       height: 100vh;
       overflow-y: auto;
     }
+
     .logo-container {
       display: flex;
       flex-direction: column;
@@ -32,6 +36,7 @@
       text-align: center;
       margin-bottom: 10px;
     }
+
     .logo-sekolah {
       width: 60px;
       height: 60px;
@@ -40,6 +45,7 @@
       border: 2px solid #007bff;
       margin-bottom: 5px;
     }
+
     .nama-sekolah {
       background-color: #007bff;
       color: yellow;
@@ -49,6 +55,7 @@
       padding: 5px;
       border-radius: 5px;
     }
+
     .btn-fitur {
       width: 100%;
       background-color: #007bff;
@@ -64,27 +71,30 @@
       font-size: 12px;
       cursor: pointer;
     }
+
     .btn-fitur span {
       font-size: 22px;
     }
+
     .main {
       flex: 1;
       padding: 15px;
+      overflow-y: auto;
     }
+
     .fitur-box {
       background-color: #007bff;
       margin-bottom: 15px;
       padding: 10px;
       border-radius: 10px;
       color: white;
-      display: none;
     }
-    .fitur-box.active {
-      display: block;
-    }
+
     .fitur-box h2 {
       margin-top: 0;
+      color: yellow;
     }
+
     .selamat-datang {
       background-color: #007bff;
       color: yellow;
@@ -95,86 +105,166 @@
       text-align: center;
       margin-bottom: 15px;
     }
+
+    .hidden {
+      display: none;
+    }
+
     input, textarea {
       width: 100%;
-      margin-bottom: 10px;
-      padding: 8px;
-      border-radius: 5px;
-      border: none;
+      margin: 5px 0;
+      padding: 5px;
     }
-    button.submit {
-      background-color: #28a745;
-      color: white;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+
+    img.preview {
+      margin-top: 10px;
+      width: 100px;
+      border-radius: 6px;
+      border: 2px solid white;
     }
+
+    ul { padding-left: 20px; }
+    li { margin-bottom: 5px; }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="sidebar">
       <div class="logo-container">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/SD_Negeri_Logo.png/600px-SD_Negeri_Logo.png" alt="Logo" class="logo-sekolah" />
+        <img id="logoSekolah" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/SD_Negeri_Logo.png/600px-SD_Negeri_Logo.png" alt="Logo" class="logo-sekolah" />
         <div class="nama-sekolah">SDN 032 MAMUGO</div>
       </div>
-      <button class="btn-fitur" onclick="showFitur('admin')"><span>⚙️</span>Admin</button>
-      <button class="btn-fitur" onclick="showFitur('pengumuman')"><span>📢</span>Pengumuman</button>
-      <button class="btn-fitur" onclick="showFitur('galeri')"><span>🖼️</span>Galeri</button>
-      <button class="btn-fitur" onclick="showFitur('jadwal')"><span>📅</span>Jadwal</button>
-      <button class="btn-fitur" onclick="showFitur('siswa')"><span>🧑‍🎓</span>Siswa</button>
-    </div><div class="main">
-  <div class="selamat-datang">SELAMAT DATANG DI SDN 032 MAMUGO</div>
+      <button class="btn-fitur" onclick="showContent('admin')"><span>⚙️</span>Admin</button>
+      <button class="btn-fitur" onclick="showContent('pengumuman')"><span>📢</span>Pengumuman</button>
+      <button class="btn-fitur" onclick="showContent('galeri')"><span>🖼️</span>Galeri</button>
+      <button class="btn-fitur" onclick="showContent('jadwal')"><span>📅</span>Jadwal</button>
+      <button class="btn-fitur" onclick="showContent('siswa')"><span>🧑‍🎓</span>Siswa</button>
+    </div>
 
-  <div id="admin" class="fitur-box">
-    <h2 style="color:yellow;">Admin Panel</h2>
-    <form>
-      <h3>Tambah Siswa</h3>
-      <input type="text" placeholder="Nama siswa">
-      <input type="text" placeholder="Kelas">
-      <button class="submit">Tambah</button>
+    <div class="main">
+      <div class="selamat-datang">SELAMAT DATANG DI SDN 032 MAMUGO</div>
 
-      <h3>Tambah Jadwal</h3>
-      <input type="text" placeholder="Hari">
-      <input type="text" placeholder="Mata pelajaran">
-      <button class="submit">Tambah</button>
+      <div id="admin" class="fitur-box hidden">
+        <h2>Admin Panel</h2>
+        <p><b>Upload Logo Sekolah:</b></p>
+        <input type="file" accept="image/*" onchange="uploadLogo(event)" />
 
-      <h3>Tambah Pengumuman</h3>
-      <textarea placeholder="Isi pengumuman"></textarea>
-      <button class="submit">Tambah</button>
+        <p><b>Tambah Siswa:</b></p>
+        <input type="text" id="namaSiswa" placeholder="Nama Siswa" />
+        <input type="text" id="kelasSiswa" placeholder="Kelas" />
+        <button onclick="tambahSiswa()">Tambah</button>
 
-      <h3>Upload Foto Galeri</h3>
-      <input type="file">
-      <button class="submit">Upload</button>
-    </form>
+        <p><b>Tambah Jadwal:</b></p>
+        <input type="text" id="jadwalKelas" placeholder="Kelas" />
+        <textarea id="isiJadwal" placeholder="Isi Jadwal"></textarea>
+        <button onclick="tambahJadwal()">Tambah</button>
+
+        <p><b>Tambah Pengumuman:</b></p>
+        <textarea id="isiPengumuman" placeholder="Isi Pengumuman"></textarea>
+        <button onclick="tambahPengumuman()">Tambah</button>
+
+        <p><b>Upload Foto Galeri:</b></p>
+        <input type="file" accept="image/*" onchange="tambahFotoGaleri(event)" />
+        <div id="previewGaleri"></div>
+      </div>
+
+      <div id="pengumuman" class="fitur-box hidden">
+        <h2>Pengumuman</h2>
+        <ul id="listPengumuman"></ul>
+      </div>
+
+      <div id="galeri" class="fitur-box hidden">
+        <h2>Galeri</h2>
+        <div id="listGaleri"></div>
+      </div>
+
+      <div id="jadwal" class="fitur-box hidden">
+        <h2>Jadwal</h2>
+        <ul id="listJadwal"></ul>
+      </div>
+
+      <div id="siswa" class="fitur-box hidden">
+        <h2>Data Siswa</h2>
+        <ul id="listSiswa"></ul>
+      </div>
+    </div>
   </div>
 
-  <div id="pengumuman" class="fitur-box" style="background-color:#28a745;">
-    <h2 style="color:yellow;">Pengumuman</h2>
-    <p>Tempat menampilkan informasi penting dan pengumuman sekolah.</p>
-  </div>
-
-  <div id="galeri" class="fitur-box" style="background-color:#17a2b8;">
-    <h2 style="color:yellow;">Galeri</h2>
-    <p>Menampilkan foto-foto kegiatan sekolah.</p>
-  </div>
-
-  <div id="jadwal" class="fitur-box" style="background-color:#ffc107; color:black;">
-    <h2>Jadwal</h2>
-    <p>Berisi jadwal pelajaran dan kegiatan sekolah.</p>
-  </div>
-
-  <div id="siswa" class="fitur-box" style="background-color:#dc3545;">
-    <h2 style="color:yellow;">Data Siswa</h2>
-    <p>Daftar siswa berdasarkan kelas.</p>
-  </div>
-</div>
-
-  </div>  <script>
-    function showFitur(id) {
-      document.querySelectorAll('.fitur-box').forEach(div => div.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+  <script>
+    function showContent(id) {
+      ['admin', 'pengumuman', 'galeri', 'jadwal', 'siswa'].forEach(section => {
+        document.getElementById(section).classList.add('hidden');
+      });
+      document.getElementById(id).classList.remove('hidden');
     }
-  </script></body>
+
+    function tambahSiswa() {
+      const nama = document.getElementById('namaSiswa').value;
+      const kelas = document.getElementById('kelasSiswa').value;
+      if (nama && kelas) {
+        const item = document.createElement('li');
+        item.textContent = `${nama} - ${kelas}`;
+        document.getElementById('listSiswa').appendChild(item);
+        document.getElementById('namaSiswa').value = '';
+        document.getElementById('kelasSiswa').value = '';
+      }
+    }
+
+    function tambahJadwal() {
+      const kelas = document.getElementById('jadwalKelas').value;
+      const isi = document.getElementById('isiJadwal').value;
+      if (kelas && isi) {
+        const item = document.createElement('li');
+        item.textContent = `Kelas ${kelas}: ${isi}`;
+        document.getElementById('listJadwal').appendChild(item);
+        document.getElementById('jadwalKelas').value = '';
+        document.getElementById('isiJadwal').value = '';
+      }
+    }
+
+    function tambahPengumuman() {
+      const isi = document.getElementById('isiPengumuman').value;
+      if (isi) {
+        const item = document.createElement('li');
+        item.textContent = isi;
+        document.getElementById('listPengumuman').appendChild(item);
+        document.getElementById('isiPengumuman').value = '';
+      }
+    }
+
+    function tambahFotoGaleri(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.className = 'preview';
+          document.getElementById('listGaleri').appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function uploadLogo(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('logoSekolah').src = e.target.result;
+          localStorage.setItem('logoSekolah', e.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Load logo jika tersimpan
+    window.onload = function() {
+      const savedLogo = localStorage.getItem('logoSekolah');
+      if (savedLogo) {
+        document.getElementById('logoSekolah').src = savedLogo;
+      }
+    };
+  </script>
+</body>
 </html>
