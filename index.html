@@ -1,197 +1,150 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>SDN 032 MAMUGO</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SDN 032 Mamugo</title>
   <style>
     body {
       margin: 0;
       font-family: sans-serif;
-      background-color: #f0f8ff;
+      background-color: #111;
+      color: white;
     }
+
     .container {
       display: flex;
-      flex-direction: row;
-      min-height: 100vh;
     }
+
     .sidebar {
-      width: 200px;
-      background-color: #007BFF;
-      color: white;
-      padding: 10px;
-      box-sizing: border-box;
+      width: 120px;
+      background-color: #222;
+      padding: 10px 5px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: 10px;
+      height: 100vh;
+      overflow-y: auto;
     }
-    .logo {
-      width: 100px;
-      height: 100px;
-      border-radius: 10px;
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
       margin-bottom: 10px;
-      object-fit: contain;
     }
-    .school-name {
-      background-color: white;
-      color: #007BFF;
+
+    .logo-sekolah {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 2px solid #007bff;
+      margin-bottom: 5px;
+    }
+
+    .nama-sekolah {
+      background-color: #007bff;
+      color: yellow;
       font-weight: bold;
+      font-size: 12px;
       text-align: center;
       padding: 5px;
-      border-radius: 6px;
-      margin-bottom: 10px;
-      font-size: 14px;
+      border-radius: 5px;
     }
-    .sidebar button {
+
+    .btn-fitur {
       width: 100%;
-      margin: 5px 0;
-      padding: 10px;
-      background-color: white;
-      color: #007BFF;
+      background-color: #007bff;
+      color: black;
       border: none;
-      border-radius: 8px;
+      padding: 10px 5px;
+      border-radius: 10px;
+      text-align: center;
       font-weight: bold;
-      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 12px;
     }
-    .content {
+
+    .btn-fitur span {
+      font-size: 22px;
+    }
+
+    .main {
       flex: 1;
       padding: 15px;
     }
-    .section {
-      display: none;
-      background-color: #cce5ff;
-      border-radius: 10px;
-      padding: 15px;
+
+    .fitur-box {
+      background-color: #007bff;
       margin-bottom: 15px;
-    }
-    .section h2 {
-      color: yellow;
-      background-color: #007BFF;
       padding: 10px;
-      border-radius: 6px;
+      border-radius: 10px;
+      color: white;
+    }
+
+    .fitur-box h2 {
+      margin-top: 0;
+    }
+
+    .selamat-datang {
+      background-color: #007bff;
+      color: yellow;
+      font-weight: bold;
+      font-size: 20px;
+      padding: 10px;
+      border-radius: 10px;
       text-align: center;
-    }
-    .active {
-      display: block;
-    }
-    @media (max-width: 600px) {
-      .container {
-        flex-direction: column;
-      }
-      .sidebar {
-        width: 100%;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .sidebar button {
-        width: 45%;
-        margin: 5px;
-      }
-      .logo {
-        width: 60px;
-        height: 60px;
-      }
-      .school-name {
-        font-size: 12px;
-        padding: 3px;
-        margin-bottom: 5px;
-      }
+      margin-bottom: 15px;
     }
   </style>
 </head>
 <body>
-
-<div class="container">
-  <div class="sidebar">
-    <img src="logo.png" alt="Logo Sekolah" class="logo">
-    <div class="school-name">SD NEGERI 032 MAMUGO</div>
-    <button onclick="tampilkan('admin')">ADMIN</button>
-    <button onclick="tampilkan('pengumuman')">PENGUMUMAN</button>
-    <button onclick="tampilkan('galeri')">GALERI</button>
-    <button onclick="tampilkan('jadwal')">JADWAL</button>
-    <button onclick="tampilkan('siswa')">SISWA</button>
-  </div>
-
-  <div class="content">
-    <div id="welcome" class="section active">
-      <h2>SELAMAT DATANG DI SDN 032 MAMUGO</h2>
-      <p style="color: black;">Silakan pilih fitur dari menu sebelah kiri.</p>
+  <div class="container">
+    <div class="sidebar">
+      <div class="logo-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/SD_Negeri_Logo.png/600px-SD_Negeri_Logo.png" alt="Logo" class="logo-sekolah" />
+        <div class="nama-sekolah">SDN 032 MAMUGO</div>
+      </div>
+      <button class="btn-fitur"><span>⚙️</span>Admin</button>
+      <button class="btn-fitur"><span>📢</span>Pengumuman</button>
+      <button class="btn-fitur"><span>🖼️</span>Galeri</button>
+      <button class="btn-fitur"><span>📅</span>Jadwal</button>
+      <button class="btn-fitur"><span>🧑‍🎓</span>Siswa</button>
     </div>
 
-    <div id="admin" class="section">
-      <h2>ADMIN PANEL</h2>
-      <div style="margin-top: 20px;">
-        <button onclick="tampilFormSiswa()" style="padding: 8px 16px; background-color: yellow; border: none; border-radius: 10px;">+ Tambah Siswa</button>
+    <div class="main">
+      <div class="selamat-datang">SELAMAT DATANG DI SDN 032 MAMUGO</div>
 
-        <div id="formSiswa" style="margin-top: 10px; display: none;">
-          <input type="text" id="namaSiswa" placeholder="Nama Siswa" style="padding: 6px; width: 100%; margin-bottom: 8px;" />
-          <input type="text" id="kelasSiswa" placeholder="Kelas" style="padding: 6px; width: 100%; margin-bottom: 8px;" />
-          <button onclick="simpanSiswa()" style="padding: 6px 12px; background-color: lightgreen; border: none; border-radius: 8px;">Simpan</button>
-        </div>
+      <div class="fitur-box" style="background-color:#007bff;">
+        <h2 style="color:yellow;">Admin Panel</h2>
+        <p>Fitur pengelolaan data website oleh admin sekolah.</p>
+      </div>
 
-        <div id="daftarSiswa" style="margin-top: 15px;"></div>
+      <div class="fitur-box" style="background-color:#28a745;">
+        <h2 style="color:yellow;">Pengumuman</h2>
+        <p>Tempat menampilkan informasi penting dan pengumuman sekolah.</p>
+      </div>
+
+      <div class="fitur-box" style="background-color:#17a2b8;">
+        <h2 style="color:yellow;">Galeri</h2>
+        <p>Menampilkan foto-foto kegiatan sekolah.</p>
+      </div>
+
+      <div class="fitur-box" style="background-color:#ffc107;">
+        <h2 style="color:black;">Jadwal</h2>
+        <p>Berisi jadwal pelajaran dan kegiatan sekolah.</p>
+      </div>
+
+      <div class="fitur-box" style="background-color:#dc3545;">
+        <h2 style="color:yellow;">Data Siswa</h2>
+        <p>Daftar siswa berdasarkan kelas.</p>
       </div>
     </div>
-
-    <div id="pengumuman" class="section">
-      <h2>PENGUMUMAN</h2>
-      <p style="color: darkblue;">Belum ada pengumuman terbaru.</p>
-    </div>
-
-    <div id="galeri" class="section">
-      <h2>GALERI KEGIATAN</h2>
-      <p style="color: darkgreen;">Galeri kegiatan akan ditampilkan di sini.</p>
-    </div>
-
-    <div id="jadwal" class="section">
-      <h2>JADWAL PELAJARAN</h2>
-      <p style="color: darkred;">Jadwal pelajaran masing-masing kelas akan muncul di sini.</p>
-    </div>
-
-    <div id="siswa" class="section">
-      <h2>DAFTAR SISWA</h2>
-      <p style="color: darkviolet;">Daftar siswa per kelas akan muncul di sini.</p>
-    </div>
   </div>
-</div>
-
-<script>
-  function tampilkan(id) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-  }
-
-  function tampilFormSiswa() {
-    document.getElementById('formSiswa').style.display = 'block';
-  }
-
-  function simpanSiswa() {
-    const nama = document.getElementById('namaSiswa').value;
-    const kelas = document.getElementById('kelasSiswa').value;
-    if (nama && kelas) {
-      const siswa = { nama, kelas };
-      let daftar = JSON.parse(localStorage.getItem('dataSiswa') || '[]');
-      daftar.push(siswa);
-      localStorage.setItem('dataSiswa', JSON.stringify(daftar));
-      tampilkanSiswa();
-      document.getElementById('namaSiswa').value = '';
-      document.getElementById('kelasSiswa').value = '';
-    }
-  }
-
-  function tampilkanSiswa() {
-    const daftar = JSON.parse(localStorage.getItem('dataSiswa') || '[]');
-    let html = '<ul>';
-    daftar.forEach((s) => {
-      html += `<li>${s.nama} - ${s.kelas}</li>`;
-    });
-    html += '</ul>';
-    document.getElementById('daftarSiswa').innerHTML = html;
-  }
-
-  tampilkanSiswa();
-</script>
-
 </body>
 </html>
