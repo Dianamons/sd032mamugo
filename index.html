@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SDN 032 Mamugo</title>
   <style>
     body {
@@ -55,28 +55,37 @@
     }
 
     .welcome {
-      font-size: 24px;
+      font-size: 20px;
       font-weight: bold;
+      background: #007bff;
+      padding: 10px;
+      border-radius: 5px;
       color: yellow;
-      text-align: left;
       margin-bottom: 20px;
-      border-bottom: 2px solid #444;
-      padding-bottom: 10px;
     }
 
-    .fitur-box {
-      background: #1e1e1e;
+    .fitur-box, .panel-admin {
+      background: #007bff;
       padding: 15px;
-      border-left: 4px solid #00bcd4;
-      margin-bottom: 20px;
       border-radius: 5px;
+      margin-bottom: 20px;
+      color: white;
     }
 
-    .panel-admin {
-      background: #232323;
-      padding: 15px;
+    .fitur-box ul {
+      padding-left: 20px;
+    }
+
+    .fitur-box img {
+      max-width: 100%;
+      border-radius: 5px;
       margin-top: 10px;
-      border-radius: 5px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      color: white;
     }
 
     textarea, input {
@@ -87,26 +96,17 @@
       border-radius: 5px;
     }
 
-    label {
-      display: block;
-      margin-top: 10px;
-    }
-
     button.simpan {
       margin-top: 15px;
-      background: #00bcd4;
+      background: #ffffff;
+      color: #007bff;
       border: none;
       padding: 10px;
       border-radius: 5px;
-      color: white;
+      font-weight: bold;
       cursor: pointer;
     }
 
-    .galeri img {
-      max-width: 100%;
-      border-radius: 5px;
-      margin-bottom: 10px;
-    }
   </style>
 </head>
 <body>
@@ -198,7 +198,7 @@
         } else if (nama === 'galeri') {
           const links = (config.galeri || '').split(',').map(x => x.trim()).filter(x => x);
           let galeriHTML = links.map(link => `<img src="${link}">`).join('');
-          konten.innerHTML = `<div class="fitur-box galeri"><h3>Galeri Kegiatan</h3>${galeriHTML || '-'}</div>`;
+          konten.innerHTML = `<div class="fitur-box"><h3>Galeri Kegiatan</h3>${galeriHTML || '-'}</div>`;
         } else if (nama === 'jadwal') {
           const list = (config.jadwal || '').split('\n').map(x => `<li>${x}</li>`).join('');
           konten.innerHTML = `<div class="fitur-box"><h3>Jadwal Pelajaran</h3><ul>${list || '-'}</ul></div>`;
@@ -207,7 +207,7 @@
           konten.innerHTML = `<div class="fitur-box"><h3>Data Siswa</h3><ul>${list || '-'}</ul></div>`;
         }
       } else if (nama !== 'admin') {
-        konten.innerHTML = `<p style="color: #bbb;">Fitur ini belum diaktifkan di panel admin.</p>`;
+        konten.innerHTML = `<div class="fitur-box"><p>Fitur ini belum diaktifkan di panel admin.</p></div>`;
       }
     }
 
