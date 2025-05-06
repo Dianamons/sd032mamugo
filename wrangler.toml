@@ -1,0 +1,12 @@
+
+name = "sdn032mamugo"
+main = "worker.js"
+compatibility_date = "2024-05-01"
+
+[[kv_namespaces]]
+binding = "LOGO_KV"
+id = "your_kv_namespace_id"
+
+[site]
+bucket = "."
+entry-point = "."
