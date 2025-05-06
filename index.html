@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SDN 032 Mamugo</title>
+</head>
+<body>
+  <h1>SELAMAT DATANG DI SDN 032 MAMUGO</h1>
+  <form id="uploadForm">
+    <input type="file" id="logoInput" accept="image/*" />
+    <button type="submit">Upload Logo</button>
+  </form>
+  <img id="logoImg" src="" alt="Logo Sekolah" style="max-width:200px;margin-top:10px;">
+  <script>
+    document.getElementById("uploadForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const file = document.getElementById("logoInput").files[0];
+      if (!file) return;
+      const formData = new FormData();
+      formData.append("logo", file);
+      await fetch("/upload", { method: "POST", body: formData });
+      location.reload();
+    });
+
+    fetch("/logo")
+      .then(res => res.blob())
+      .then(blob => {
+        if (blob.type.startsWith("image")) {
+          document.getElementById("logoImg").src = URL.createObjectURL(blob);
+        }
+      });
+  </script>
+</body>
+</html>
